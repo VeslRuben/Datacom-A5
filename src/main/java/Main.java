@@ -19,6 +19,7 @@ public class Main {
             task3(sessionId);
             task4(sessionId);
             task5(sessionId);
+            task6(sessionId);
         }
     }
 
@@ -150,7 +151,24 @@ public class Main {
 
     }
 
-    private static void task5(int sessionId){
+    private static void task5(int sessionID) {
+        String respons;
+        respons = GET.sendGet("dkrest/gettask/2016?sessionId=" + sessionID);
+        System.out.println(respons);
+
+        JSONObject jOb = new JSONObject(respons);
+        respons = (String) jOb.getJSONArray("arguments").get(0);
+
+        JSONObject send = new JSONObject();
+        send.put("sessionId", sessionID);
+        send.put("ip", respons);
+
+        respons = POST.sendPost("dkrest/solve", send);
+        System.out.println(respons);
+
+    }
+
+    private static void task6(int sessionId){
         String respons;
         respons = GET.sendGet("dkrest/results/" + sessionId);
         //respons = GET.sendGet("dkrest/task");
