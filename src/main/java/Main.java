@@ -2,6 +2,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+
 public class Main {
 
 
@@ -10,7 +13,12 @@ public class Main {
         JSONObject jOb = new JSONObject(respons);
         int sessionId = jOb.getInt("sessionId");
 
-        task4(sessionId);
+        //task1(sessionId);
+        //task2(sessionId);
+        //task3(sessionId);
+        //task4(sessionId);
+        task5(sessionId);
+
 
 
     }
@@ -37,7 +45,7 @@ public class Main {
         System.out.println(POST.sendPost("dkrest/test/post", send));
     }
 
-    private static String LogIn(){
+    private static String LogIn() {
         String email = "rubensj@stud.ntnu.no";
         String tlf = "41337309";
 
@@ -70,7 +78,7 @@ public class Main {
         respons = (String) jOb.getJSONArray("arguments").get(0);
 
         JSONObject send = new JSONObject();
-        send.put("msg",  respons);
+        send.put("msg", respons);
         send.put("sessionId", sessionId);
         respons = POST.sendPost("dkrest/solve", send);
         System.out.println(respons);
@@ -105,16 +113,38 @@ public class Main {
         JSONArray array = jOb.getJSONArray("arguments");
 
 
-        BruteCrack crack = new BruteCrack();
-        String pin = crack.crack((String) array.get(0));
-        System.out.println(pin);
+        for (int a = 0; a <= 9; a++) {
+            for (int b = 0; b <= 9; b++) {
+                for (int c = 0; c <= 9; c++) {
+                    for (int d = 0; d <= 9; d++) {
+                        String pin = "" + a + "" + b + "" + c + "" + d;
+                        MessageDigest md = MessageDigest.getInstance("MD5");
+                        byte[] hashInBytes = md.digest(pin.getBytes(StandardCharsets.UTF_8));
 
-        JSONObject send = new JSONObject();
-        send.put("pin", pin);
-        send.put("sessionId", sessionId);
-        respons = POST.sendPost("dkrest/solve", send);
-        System.out.println(respons);
+                        StringBuilder sb = new StringBuilder();
+                        for (byte g : hashInBytes) {
+                            sb.append(String.format("%02x", g));
+                        }
+                        if (array.get(0).equals(sb.toString())) {
+
+                            JSONObject send = new JSONObject();
+                            send.put("pin", pin);
+                            send.put("sessionId", sessionId);
+                            respons = POST.sendPost("dkrest/solve", send);
+                            System.out.println(respons);
+                        }
+
+                    }
+                }
+            }
+        }
+
     }
 
-
+    private static void task5(int sessionId) throws Exception {
+        String respons;
+        //respons = GET.sendGet("dkrest/results/" + sessionId);
+        respons = GET.sendGet("dkrest/task");
+        System.out.println(respons);
+    }
 }
