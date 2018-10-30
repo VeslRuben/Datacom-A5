@@ -1,5 +1,3 @@
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.*;
@@ -7,9 +5,7 @@ import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
 
-public class POST {
-
-    private static String BASE_URL; // Base URL (address) of the server
+class POST {
 
     /**
      * Send HTTP POST
@@ -17,8 +13,9 @@ public class POST {
      * @param path     Relative path in the API.
      * @param jsonData The data in JSON format that will be posted to the server
      */
-    public static String sendPost(String path, JSONObject jsonData) {
-        BASE_URL = "http://" + "104.248.47.74" + ":" + "80" + "/";
+    static String sendPost(String path, JSONObject jsonData) {
+        // Base URL (address) of the server
+        String BASE_URL = "http://" + "104.248.47.74" + ":" + "80" + "/";
         try {
             String url = BASE_URL + path;
             URL urlObj = new URL(url);

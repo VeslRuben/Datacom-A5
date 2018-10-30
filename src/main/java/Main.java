@@ -1,5 +1,4 @@
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.nio.charset.StandardCharsets;
@@ -13,10 +12,10 @@ public class Main {
         JSONObject jOb = new JSONObject(respons);
         int sessionId = jOb.getInt("sessionId");
 
-        //task1(sessionId);
-        //task2(sessionId);
-        //task3(sessionId);
-        //task4(sessionId);
+        task1(sessionId);
+        task2(sessionId);
+        task3(sessionId);
+        task4(sessionId);
         task5(sessionId);
 
 
@@ -141,10 +140,10 @@ public class Main {
 
     }
 
-    private static void task5(int sessionId) throws Exception {
+    private static void task5(int sessionId){
         String respons;
-        //respons = GET.sendGet("dkrest/results/" + sessionId);
-        respons = GET.sendGet("dkrest/task");
+        respons = GET.sendGet("dkrest/results/" + sessionId);
+        //respons = GET.sendGet("dkrest/task");
         System.out.println(respons);
     }
 }

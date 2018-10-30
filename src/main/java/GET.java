@@ -6,17 +6,16 @@ import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
 
-public  class GET {
-
-    private static String BASE_URL; // Base URL (address) of the server
+class GET {
 
     /**
      * Send HTTP GET
      *
      * @param path     Relative path in the API.
      */
-    public static String sendGet(String path) {
-        BASE_URL = "http://" + "104.248.47.74" + ":" + "80" + "/";
+    static String sendGet(String path) {
+        // Base URL (address) of the server
+        String BASE_URL = "http://" + "104.248.47.74" + ":" + "80" + "/";
         try {
             String url = BASE_URL + path;
             URL urlObj = new URL(url);
