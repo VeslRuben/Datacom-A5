@@ -8,18 +8,18 @@ public class Main {
 
 
     public static void main(String args[]) throws Exception {
-        String respons = LogIn();
-        JSONObject jOb = new JSONObject(respons);
-        int sessionId = jOb.getInt("sessionId");
 
-        task1(sessionId);
-        task2(sessionId);
-        task3(sessionId);
-        task4(sessionId);
-        task5(sessionId);
+        for (int i = 1 ; i < 4 ; i++) {
+            String respons = LogIn(i);
+            JSONObject jOb = new JSONObject(respons);
+            int sessionId = jOb.getInt("sessionId");
 
-
-
+            task1(sessionId);
+            task2(sessionId);
+            task3(sessionId);
+            task4(sessionId);
+            task5(sessionId);
+        }
     }
 
     public void test() {
@@ -44,9 +44,19 @@ public class Main {
         System.out.println(POST.sendPost("dkrest/test/post", send));
     }
 
-    private static String LogIn() {
-        String email = "rubensj@stud.ntnu.no";
-        String tlf = "41337309";
+    private static String LogIn(int index) {
+        String email;
+        String tlf;
+        if(index == 1) {
+            email = "rubensj@stud.ntnu.no";
+            tlf = "41337309";
+        } else if (index == 2) {
+            email = "haakonbw@stud.ntnu.no";
+            tlf = "97541481";
+        } else {
+            email = "vebjorrw@stud.ntnu.no";
+            tlf = "97463200";
+        }
 
         JSONObject send = new JSONObject();
         send.put("email", email);
